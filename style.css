@@ -83,4 +83,7 @@ button:active, #top1:active, #top2:active{
     font-size:15px;
     font-family:Roboto, sans-serif;
   }
+  #a4,#a8,#a12,#a13,#a15,#a16{
+      background-color: lightblue;
+  }
 
