@@ -37,18 +37,28 @@ function checker(input){
     //first digit
     if(i == 0){
         //handles .
-        if(input == '.' && Number.isInteger(parseInt(arrHold[i])) == true){
+        if(input == '.' && arrHold[i].includes('.') == false){
             arrHold[i] = arrHold[i] + input;
             element.innerHTML = arrHold[i];
         }
         //handles numbers
         else if(Number.isInteger(parseInt(input))== true){
             if(arrHold.length == 0){
-                arrHold.push(input)}
+                arrHold.push(input)
+            }   
             else{
                 arrHold[i] = arrHold[i]+input;
                 }
             element.innerHTML = arrHold[i];
+        }
+        else if (input == '-' && arrHold.length ==0){
+            arrHold.push(input)
+            element.innerHTML = input;
+        }
+        else if(input == '-' && arrHold[i] == '-'){
+            arrHold.splice(-1,1)
+            i = 0;
+            element.innerHTML = "";
         }
         //handles = 
         else if(input == '=' ){
@@ -61,7 +71,7 @@ function checker(input){
         }
     }
     else if (i ==1){
-        if(Number.isInteger(parseInt(input)) ==true){
+        if(Number.isInteger(parseInt(input)) ==true || input == '-'){
 
             i++;
             arrHold.push(input);
@@ -76,7 +86,7 @@ function checker(input){
    }
    else if (i ==2){
        //handles .
-    if(input == '.' && Number.isInteger(parseInt(arrHold[i])) == true){
+    if(input == '.' && arrHold[i].includes('.') == false ){
         arrHold[i] = arrHold[i] + input;
         element.innerHTML = arrHold[i];
     }
@@ -86,12 +96,17 @@ function checker(input){
         element.innerHTML = arrHold[i];
     }
     // handles = 
-    else if(input != '.'&& Number.isInteger(parseInt(input)) == false && input == '='){
+    else if(parseFloat(arrHold[i]) != NaN && input == '=' ){
         operate(arrHold[0],arrHold[1],arrHold[2])
         element.innerHTML = solution;
         i = 0;
         arrHold = [];
         arrHold[0] = solution;
+    }
+    else if(arrHold[i]== '-' && input == '-'){
+        arrHold.splice(-1,1)
+        i = i-1;
+        element.innerHTML = "";
     }
     // handles + - x /
     else if(input == '+' || input == '-' || input == 'x' || input == '/'){
@@ -101,12 +116,12 @@ function checker(input){
         arrHold = [];
         arrHold[0] = solution;
         arrHold[1] = input;
-    } 
+    }
+    
     else{
         arrHold[i] = arrHold[i];
     }
    }
-   console.log(solution)
 }
 function operate(num1,op1,num2) {
  
